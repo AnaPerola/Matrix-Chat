@@ -41,15 +41,15 @@ export function MessageList(props) {
                   borderRadius: '50%',
                   marginRight: '8px',
                 }}
-                src={`https://github.com/anaperola.png`}
+                src={`https://github.com/${mensagem.from}.png`}
               />
               <Text tag="strong">
-                {mensagem.de}
+                {mensagem.from}
               </Text>
               <Text
                 styleSheet={{
                   fontSize: '10px',
-                  marginLeft: '990px',
+                  marginLeft: '90px',
                   color: appConfig.theme.colors.neutrals[300],
                 }}
                 tag="span"
@@ -57,7 +57,7 @@ export function MessageList(props) {
                 {(new Date().toLocaleDateString())}
               </Text>
             </Box>
-            {mensagem.texto}
+            {mensagem.text}
           </Text>
         )
       })}
