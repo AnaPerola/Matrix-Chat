@@ -1,25 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createClient} from '@supabase/supabase-js';
 
-import { Box, TextField } from '@skynexui/components';
+import { Box, TextField, Image } from '@skynexui/components';
 import appConfig from '../config.json';
 
 import Header from '../components/Header';
 import { MessageList } from '../components/MessageList';
 
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzY0NDk3MiwiZXhwIjoxOTU5MjIwOTcyfQ.iWxV7vtI4NyM_dYhnE5EYoxi5P_7MMmx1ovNuGxaKrw'
+const SUPABASE_URL = 'https://jhpjojtssstjurvfapzj.supabase.co'
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
 export default function ChatPage() {
   const [ mensagem, setMensagem] = useState('');
   const [ list , setList] = useState([]);
+  // useEffect roda sempre quando a pagina carrega 
+  useEffect(() => {
+    supabaseClient
+      .from('mensagens')
+      .select('*')
+      .order('id', { ascending: false })
+      .then(({ data }) => {
+        setList(data)
+      });
+  }, []);
+  
 
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
       id: list.length + 1 ,
-      de:'anaperola',
-      texto: novaMensagem,
+      from: 'anaperola',
+      text: novaMensagem,
     }
-    setList([
-      mensagem,
-      ...list,
-    ]);
+
+    supabaseClient
+      .from('mensagens')
+      .insert([
+        mensagem
+      ])
+      .then(({ data })=> {
+        console.log('O que chega:', data)
+        setList([
+          data[0],
+          ...list,
+        ]);
+      });
     setMensagem('');
   }
 
@@ -62,7 +87,6 @@ export default function ChatPage() {
         >
           
           <MessageList mensagens={list} />
-          
           <Box
             as="form"
             styleSheet={{
