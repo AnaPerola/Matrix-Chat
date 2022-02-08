@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { createClient} from '@supabase/supabase-js';
+import { ButtonSendSticker } from '../components/ButtonSendSticker/index';
 
-import { Box, TextField, Image } from '@skynexui/components';
+import { Box, TextField } from '@skynexui/components';
 import appConfig from '../config.json';
 
 import Header from '../components/Header';
@@ -11,9 +13,22 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5v
 const SUPABASE_URL = 'https://jhpjojtssstjurvfapzj.supabase.co'
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
+function MessageRealTime(addMessage) {
+  return supabaseClient
+    .from('mensagens')
+    .on('INSERT', (respostaLive) => {
+      addMessage(respostaLive.new);
+    })
+    .subscribe();
+}
+
 export default function ChatPage() {
   const [ mensagem, setMensagem] = useState('');
   const [ list , setList] = useState([]);
+  const roteamento = useRouter();
+  // fazer roteamento com useEffect e useState
+
+  const userlogado = roteamento.query.username;
   // useEffect roda sempre quando a pagina carrega 
   useEffect(() => {
     supabaseClient
@@ -23,13 +38,22 @@ export default function ChatPage() {
       .then(({ data }) => {
         setList(data)
       });
+    MessageRealTime((newMessage) => {
+      handleNovaMensagem(newMessage)
+      setList((ValorAtualList) => {
+        return [
+          newMessage,
+          ...ValorAtualList,
+        ]}
+      );
+    });
   }, []);
   
 
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
       id: list.length + 1 ,
-      from: 'anaperola',
+      from: userlogado,
       text: novaMensagem,
     }
 
@@ -40,10 +64,7 @@ export default function ChatPage() {
       ])
       .then(({ data })=> {
         console.log('O que chega:', data)
-        setList([
-          data[0],
-          ...list,
-        ]);
+       
       });
     setMensagem('');
   }
@@ -87,6 +108,7 @@ export default function ChatPage() {
         >
           
           <MessageList mensagens={list} />
+          
           <Box
             as="form"
             styleSheet={{
@@ -117,6 +139,12 @@ export default function ChatPage() {
                 backgroundColor: appConfig.theme.colors.neutrals[800],
                 marginRight: '12px',
                 color: appConfig.theme.colors.neutrals[200],
+              }}
+            />
+            {/* USANDO O COMPONENTE E SALVANDO NO BANCO */}
+            <ButtonSendSticker 
+              onStickerClick={(sticker) => {
+                handleNovaMensagem(`:sticker: ${sticker}`);
               }}
             />
           </Box>

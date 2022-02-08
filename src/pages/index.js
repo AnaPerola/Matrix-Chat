@@ -13,7 +13,7 @@ function Title(props) {
         ${Tag} {
           color: ${appConfig.theme.colors.neutrals['000']};
           font-size:24px;
-          font-weight: 500;
+          font-weight:  500;
         }
       `}</style>
     </>
@@ -30,7 +30,7 @@ export default function HomePage() {
 
   function Navigation(event){
     event.preventDefault();
-    roteamento.push('/chat');
+    roteamento.push(`/chat?username=${username}`);
   }
 
   return (
