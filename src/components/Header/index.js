@@ -1,6 +1,7 @@
+import { React } from 'react'
 import { Box, Text, Button } from '@skynexui/components';
 
-export default function Header() {
+const Header = () =>{
   return (
     <>
       <Box styleSheet={{ width: '100%', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
@@ -17,3 +18,4 @@ export default function Header() {
     </>
   )
 }
+export default Header;
