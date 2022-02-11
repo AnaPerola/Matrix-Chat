@@ -5,7 +5,7 @@ import { transparentize } from 'polished';
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 // import Title from '../../components/TitleWelcome';
 
-function HomePage(props) {
+const HomePage = (props) => {
   
   const [username, setUsername] = useState('anaperola');
   const roteamento = useRouter();
