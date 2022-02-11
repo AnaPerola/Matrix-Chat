@@ -71,6 +71,7 @@ const App = () => {
             <TextField
               value={username}
               onChange={ChangeName}
+              placeholder="Insira seu nome aqui..."
               fullWidth
               textFieldColors={{
                 neutral: {

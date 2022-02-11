@@ -68,7 +68,6 @@ const ChatPage = () => {
       ])
       .then(({ data })=> {
         console.log('O que chega:', data)
-       
       });
     setMensagem('');
   }
@@ -145,21 +144,22 @@ const ChatPage = () => {
                 color: appConfig.theme.colors.neutrals[200],
               }}
             />
+            {/* USANDO O COMPONENTE E SALVANDO NO BANCO */}
+            <ButtonSendSticker 
+              onStickerClick={(sticker) => {
+                handleNovaMensagem(`:sticker: ${sticker}`);
+              }}
+            />
+
             <Button iconName="arrowRight" label="" rounded="full" variant="secondary" 
               onClick={(event) => {
                 handleNovaMensagem(mensagem)
               }}
               styleSheet={{
-                marginRight:'10px',
+                marginLeft:'10px',
                 marginBottom: '8px',
                 minWidth: '50px',
                 minHeight: '50px',
-              }}
-            />
-            {/* USANDO O COMPONENTE E SALVANDO NO BANCO */}
-            <ButtonSendSticker 
-              onStickerClick={(sticker) => {
-                handleNovaMensagem(`:sticker: ${sticker}`);
               }}
             />
           </Box>
