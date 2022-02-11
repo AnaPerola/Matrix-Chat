@@ -8,7 +8,7 @@ import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 // import Title from '../../components/TitleWelcome';
 const App = () => {
 
-  const [username, setUsername] = useState('anaperola');
+  const [username, setUsername] = useState('');
   const roteamento = useRouter();
 
   function ChangeName(event) {
@@ -93,8 +93,6 @@ const App = () => {
               }} />
           </Box>
           {/* Formulário */}
-
-
           {/* Photo Area */}
           <Box
             styleSheet={{
