@@ -4,10 +4,10 @@
 
 > Projeto construido pela @anaperola durante a Imersão React da Alura
 
-<!--- <p align="center">
-  <img src="https://github.com/anaperola/Matrix-Chat/blob/master/public/Ana.gif"/>
+<p align="center">
+  <img src="https://github.com/anaperola/Matrix-Chat/blob/master/public/chat_sharks.gif"/>
 </p>
--->
+
 
 # Seja bem vindo ao meu primeiro Chat Particular!
 
