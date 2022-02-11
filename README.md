@@ -5,7 +5,7 @@
 > Projeto construido pela @anaperola durante a Imersão React da Alura
 
 <p align="center">
-  <img src="https://github.com/AnaPerola/Matrix-Chat/tree/main/src/public/chat_sharks.gif"/>
+  <img src="https://github.com/AnaPerola/Matrix-Chat/blob/development/src/public/chat_sharks.gif"/>
 </p>
 
 
