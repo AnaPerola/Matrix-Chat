@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { transparentize } from 'polished';
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 // import Title from '../../components/TitleWelcome';
-
+//
 const HomePage = (props) => {
   
   const [username, setUsername] = useState('anaperola');
