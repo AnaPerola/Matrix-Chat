@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { createClient} from '@supabase/supabase-js';
-import { ButtonSendSticker } from '../components/ButtonSendSticker/index';
 
+import appConfig from '../../config.json';
+
+import { createClient }   from '@supabase/supabase-js';
 import { Box, TextField } from '@skynexui/components';
-import appConfig from '../config.json';
+import { transparentize } from 'polished';
 
-import Header from '../components/Header';
-import { MessageList } from '../components/MessageList';
-
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzY0NDk3MiwiZXhwIjoxOTU5MjIwOTcyfQ.iWxV7vtI4NyM_dYhnE5EYoxi5P_7MMmx1ovNuGxaKrw'
-const SUPABASE_URL = 'https://jhpjojtssstjurvfapzj.supabase.co'
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-
-function MessageRealTime(addMessage) {
-  return supabaseClient
-    .from('mensagens')
-    .on('INSERT', (respostaLive) => {
-      addMessage(respostaLive.new);
-    })
-    .subscribe();
-}
+import ButtonSendSticker from '../../components/ButtonSendSticker/index';
+import Header  from '../../components/Header';
+import MessageList  from '../../components/MessageList';
 
 export default function ChatPage() {
   const [ mensagem, setMensagem] = useState('');
   const [ list , setList] = useState([]);
   const roteamento = useRouter();
+
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzY0NDk3MiwiZXhwIjoxOTU5MjIwOTcyfQ.iWxV7vtI4NyM_dYhnE5EYoxi5P_7MMmx1ovNuGxaKrw'
+  const SUPABASE_URL = 'https://jhpjojtssstjurvfapzj.supabase.co'
+  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+  const MessageRealTime = (addMessage) => {
+    return supabaseClient
+      .from('mensagens')
+      .on('INSERT', (respostaLive) => {
+        addMessage(respostaLive.new);
+      })
+      .subscribe();
+  }
   // fazer roteamento com useEffect e useState
 
   const userlogado = roteamento.query.username;
@@ -74,7 +76,7 @@ export default function ChatPage() {
       styleSheet={{
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         backgroundColor: appConfig.theme.colors.primary[500],
-        backgroundImage: `url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)`,
+        backgroundImage: `url(https://coolwallpapers.me/th700/2933776-great-white-shark___animal-wallpapers.jpg)`,
         backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
         color: appConfig.theme.colors.neutrals['000']
       }}
@@ -86,7 +88,7 @@ export default function ChatPage() {
           flex: 1,
           boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
           borderRadius: '5px',
-          backgroundColor: appConfig.theme.colors.neutrals[700],
+          backgroundColor: transparentize(0.3, appConfig.theme.colors.neutrals[700]),
           height: '100%',
           maxWidth: '95%',
           maxHeight: '95vh',
@@ -100,7 +102,7 @@ export default function ChatPage() {
             display: 'flex',
             flex: 1,
             height: '80%',
-            backgroundColor: appConfig.theme.colors.neutrals[600],
+            backgroundColor: transparentize(0.3,appConfig.theme.colors.neutrals[600]),
             flexDirection: 'column',
             borderRadius: '5px',
             padding: '16px',

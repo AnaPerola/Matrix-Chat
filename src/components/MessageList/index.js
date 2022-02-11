@@ -1,7 +1,7 @@
 import appConfig from '../../config.json';
 import { Box, Text, Image } from '@skynexui/components';
 
-export function MessageList(props) {
+const MessageList = (props)=> {
   return (
     <Box
       tag="ul"
@@ -72,3 +72,5 @@ export function MessageList(props) {
     </Box>
   )
 }
+
+export default MessageList;
