@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import appConfig from '../../config.json';
+import appConfig from '../config.json';
 
 import { createClient }   from '@supabase/supabase-js';
 import { Box, TextField } from '@skynexui/components';
 import { transparentize } from 'polished';
 
-import ButtonSendSticker from '../../components/ButtonSendSticker/index';
-import Header  from '../../components/Header';
-import MessageList  from '../../components/MessageList';
+import ButtonSendSticker from '../components/ButtonSendSticker/index';
+import Header  from '../components/Header';
+import MessageList  from '../components/MessageList';
 
-export default function ChatPage() {
+const ChatPage = () => {
   const [ mensagem, setMensagem] = useState('');
   const [ list , setList] = useState([]);
   const roteamento = useRouter();
@@ -155,3 +155,4 @@ export default function ChatPage() {
     </Box>
   )
 }
+export default ChatPage;
