@@ -4,32 +4,31 @@ import { useRouter } from 'next/router';
 import appConfig from '../config.json';
 
 import { createClient }   from '@supabase/supabase-js';
-import { Box, TextField } from '@skynexui/components';
+import { Box, TextField, Button } from '@skynexui/components';
 import { transparentize } from 'polished';
 
 import ButtonSendSticker from '../components/ButtonSendSticker/index';
 import Header  from '../components/Header';
 import MessageList  from '../components/MessageList';
 
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzY0NDk3MiwiZXhwIjoxOTU5MjIwOTcyfQ.iWxV7vtI4NyM_dYhnE5EYoxi5P_7MMmx1ovNuGxaKrw'
+const SUPABASE_URL = 'https://jhpjojtssstjurvfapzj.supabase.co'
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+function MessageRealTime(addMessage) {
+  return supabaseClient
+    .from('mensagens')
+    .on('INSERT', (respostaBack) => {
+      addMessage(respostaBack.new);
+    })
+    .subscribe();
+  }
+
 const ChatPage = () => {
   const [ mensagem, setMensagem] = useState('');
   const [ list , setList] = useState([]);
   const roteamento = useRouter();
-
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzY0NDk3MiwiZXhwIjoxOTU5MjIwOTcyfQ.iWxV7vtI4NyM_dYhnE5EYoxi5P_7MMmx1ovNuGxaKrw'
-  const SUPABASE_URL = 'https://jhpjojtssstjurvfapzj.supabase.co'
-  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-
-  const MessageRealTime = (addMessage) => {
-    return supabaseClient
-      .from('mensagens')
-      .on('INSERT', (respostaLive) => {
-        addMessage(respostaLive.new);
-      })
-      .subscribe();
-  }
   // fazer roteamento com useEffect e useState
-
   const userlogado = roteamento.query.username;
   // useEffect roda sempre quando a pagina carrega 
   useEffect(() => {
@@ -40,15 +39,18 @@ const ChatPage = () => {
       .then(({ data }) => {
         setList(data)
       });
-    MessageRealTime((newMessage) => {
-      handleNovaMensagem(newMessage)
+    const subscription = MessageRealTime((newMessage) => {
       setList((ValorAtualList) => {
         return [
           newMessage,
           ...ValorAtualList,
-        ]}
-      );
+        ]
+      });
     });
+
+    return () => {
+      subscription.unsubscribe();
+    }
   }, []);
   
 
@@ -141,6 +143,17 @@ const ChatPage = () => {
                 backgroundColor: appConfig.theme.colors.neutrals[800],
                 marginRight: '12px',
                 color: appConfig.theme.colors.neutrals[200],
+              }}
+            />
+            <Button iconName="arrowRight" label="" rounded="full" variant="secondary" 
+              onClick={(event) => {
+                handleNovaMensagem(mensagem)
+              }}
+              styleSheet={{
+                marginRight:'10px',
+                marginBottom: '8px',
+                minWidth: '50px',
+                minHeight: '50px',
               }}
             />
             {/* USANDO O COMPONENTE E SALVANDO NO BANCO */}
