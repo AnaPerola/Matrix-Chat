@@ -11,8 +11,8 @@ import ButtonSendSticker from '../components/ButtonSendSticker/index';
 import Header  from '../components/Header';
 import MessageList  from '../components/MessageList';
 
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzY0NDk3MiwiZXhwIjoxOTU5MjIwOTcyfQ.iWxV7vtI4NyM_dYhnE5EYoxi5P_7MMmx1ovNuGxaKrw'
-const SUPABASE_URL = 'https://jhpjojtssstjurvfapzj.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xa2FraGRlYnplcHNkYnNoZnFjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY0NTU2MDQyNiwiZXhwIjoxOTYxMTM2NDI2fQ.r6N7SGV23CSCPu7tAPLouDUvugq5MZs60Dy-WzL8oDYc'
+const SUPABASE_URL = 'https://oqkakhdebzepsdbshfqc.supabase.co.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xa2FraGRlYnplcHNkYnNoZnFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDU1NjA0MjYsImV4cCI6MTk2MTEzNjQyNn0.gx0zpd6Ui2-YIv9GKdFC9VztQHfhNMn8ORLfe7VFo5c'
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 function MessageRealTime(addMessage) {
