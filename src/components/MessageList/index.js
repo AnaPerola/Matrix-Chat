@@ -13,7 +13,7 @@ const MessageList = (props)=> {
         color: appConfig.theme.colors.neutrals["000"],
         marginBottom: '16px',
       }}
-    >
+    > 
       {props.mensagens.map((mensagem)=> {
         return (
           <Text
